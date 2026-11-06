@@ -1,0 +1,11 @@
+Good news — the content you just pasted is **File 2 in full, and it matches the workspace version exactly** (same 84 lines, same header, same final `run:` line). Nothing was truncated. That gives you a clean copy-paste path on GitHub:
+
+1. In your **main production repo** (the one behind biobreathing.com), click **Add file → Create new file**.
+2. In the filename box, type the full path: `.github/workflows/cp2-integration.yml` — typing the slashes auto-creates the `.github/workflows/` folders.
+3. Paste the content exactly as it appears above (from `# .github/workflows/cp2-integration.yml` through the final `run: npx vitest run ... --reporter=verbose` line).
+4. Commit directly to `main`.
+5. Go to the **Actions** tab, select **CP-2 Integration Tests (MySQL)** from the workflow list, click **Run workflow → Run workflow**.
+
+It will spin up its own isolated MySQL 8 container — no production data, no secrets involved. When the run finishes, the result of IT-01 through IT-10 tells us whether the outbox claim-token logic holds up under real InnoDB locking, which is the last gate before applying migration 0022 and turning the worker on.
+
+If the run fails, paste the failing test output here and I'll diagnose it.
